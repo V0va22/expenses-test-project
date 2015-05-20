@@ -5,7 +5,7 @@
         </div>
         <div>
             <div>
-                <table class="table" ng-table="vm.tableParams" show-filter="true">
+                <table class="table" ng-table="vm.tableParams" show-filter="true" template-pagination="views/nocontent.html">
                     <tr ng-repeat="expense in $data">
                         <td data-title="'Description'" sortable="'description'" filter="{ 'description': 'text' }">
                             {{expense.description}}

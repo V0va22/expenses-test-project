@@ -66,7 +66,7 @@ public class ExpensesFunctionalTest extends AbstractFunctionalTest {
         long end = new Date().getTime();
         ResponseEntity<Report> report = send("report?start=" + start + "&end=" + end, HttpMethod.GET, Report.class, ROLE.USER);
         Assert.assertEquals(HttpStatus.OK, report.getStatusCode());
-        Assert.assertEquals(11, report.getBody().getExpenses().size());
+        Assert.assertEquals(1, report.getBody().getDayReports().size());
     }
 
     private void generateExpenses(int count){

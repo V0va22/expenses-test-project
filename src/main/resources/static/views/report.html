@@ -26,13 +26,19 @@
 
             <table id="report-table" class="table report_table" ng-table template-pagination="views/nocontent.html"
                    ng-show="vm.tableData.length != 0">
-                <tr ng-repeat="expense in vm.report.expenses">
-                    <td data-title="'Description'">{{expense.description}}</td>
-                    <td data-title="'Comment'">{{expense.comment}}</td>
-                    <td data-title="'Category'">{{expense.category}}</td>
-                    <td data-title="'Date'">{{expense.date | date:'medium'}}</td>
-                    <td data-title="'Amount'" class="amount">{{expense.amount}}</td>
-                </tr>
+                <tbody ng-repeat="dayReport in vm.report.dayReports">
+                    <tr ng-repeat="expense in dayReport.expenses">
+                        <td data-title="'Description'">{{expense.description}}</td>
+                        <td data-title="'Comment'">{{expense.comment}}</td>
+                        <td data-title="'Category'">{{expense.category}}</td>
+                        <td data-title="'Date'">{{expense.date | date:'medium'}}</td>
+                        <td data-title="'Amount'" class="amount">{{expense.amount| number:2}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="emptyRow"></td>
+                        <td class="totalRow"><strong>Day average: {{dayReport.average| number:2}}</strong> </td>
+                    </tr>
+                </tbody>
                 <tr>
                     <td colspan="4" class="emptyRow"></td>
                     <td class="totalRow"><strong>Total: {{vm.report.total}}</strong> </td>

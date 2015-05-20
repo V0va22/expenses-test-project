@@ -1,28 +1,28 @@
 package com.toptal.test.expenses.model;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
-/**
- * Created by VK on 19.05.2015.
- */
 public class Report {
-    private List<Expense> expenses;
+    private List<DayReport> dayReports = new ArrayList<>();
     private Double total;
 
     public Report() {
     }
 
-    public Report(List<Expense> expenses, double total) {
-        this.expenses = expenses;
+    public Report(Map<String, List<Expense>> groupedExpences, double total) {
+        TreeMap<String, List<Expense>> sortedExpenses = new TreeMap<>((o1, o2) ->  o1.compareTo(o2));
+        sortedExpenses.putAll(groupedExpences);
+        sortedExpenses.forEach((k,v) -> dayReports.add(new DayReport(v)));
         this.total = total;
     }
 
-    public List<Expense> getExpenses() {
-        return expenses;
+    public List<DayReport> getDayReports() {
+        return dayReports;
     }
 
-    public void setExpenses(List<Expense> expenses) {
-        this.expenses = expenses;
+    public void setDayReports(List<DayReport> dayReports) {
+        this.dayReports = dayReports;
     }
 
     public Double getTotal() {
@@ -31,5 +31,34 @@ public class Report {
 
     public void setTotal(Double total) {
         this.total = total;
+    }
+
+    public static class DayReport {
+        private List<Expense> expenses;
+        private Double average;
+
+        public DayReport() {
+        }
+
+        public DayReport(List<Expense> expenses) {
+            this.expenses = expenses;
+            this.average = expenses.stream().collect(Collectors.averagingLong((e -> new Double(e.getAmount() * 100d).longValue())))/100;
+        }
+
+        public List<Expense> getExpenses() {
+            return expenses;
+        }
+
+        public void setExpenses(List<Expense> expenses) {
+            this.expenses = expenses;
+        }
+
+        public Double getAverage() {
+            return average;
+        }
+
+        public void setAverage(Double average) {
+            this.average = average;
+        }
     }
 }

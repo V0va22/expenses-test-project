@@ -10,8 +10,11 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.springframework.data.mongodb.core.query.Criteria.*;
@@ -45,9 +48,16 @@ public class ExpensesController {
     public Report report(@RequestParam Long start, @RequestParam Long end) throws Exception {
         Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Expense> expenses = mongo.find(new Query().addCriteria(where("date").gte(new Date(start)).lte(new Date(end)).and("userId").is(user)), Expense.class);
-        // calculating sum via long. It is forbidden to calculate money with float or double
-        Long sumLong = expenses.stream().collect(Collectors.summingLong(e -> new Double(e.getAmount() * 100d).longValue()));
-        return new Report(expenses, new Long(sumLong).doubleValue() / 100);
+        // grouping by day average
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Map<String, List<Expense>> groupedExpenses = expenses.stream().collect(Collectors.groupingBy(e -> dateFormat.format(e.getDate())));
+        // calculating total
+        Long sumLong = calculateExpensesSum(expenses);
+        return new Report(groupedExpenses,  new Long(sumLong).doubleValue() / 100);
 
+    }
+    // calculating sum via long. It is forbidden to calculate money with float or double
+    private Long calculateExpensesSum(List<Expense> expenses) {
+        return expenses.stream().collect(Collectors.summingLong(e -> new Double(e.getAmount() * 100d).longValue()));
     }
 }
