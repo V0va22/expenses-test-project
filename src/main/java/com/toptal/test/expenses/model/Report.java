@@ -1,16 +1,18 @@
 package com.toptal.test.expenses.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Report {
     private List<DayReport> dayReports = new ArrayList<>();
-    private Double total;
+    private BigDecimal total;
 
     public Report() {
     }
 
-    public Report(Map<String, List<Expense>> groupedExpences, double total) {
+    public Report(Map<String, List<Expense>> groupedExpences, BigDecimal total) {
         TreeMap<String, List<Expense>> sortedExpenses = new TreeMap<>((o1, o2) ->  o1.compareTo(o2));
         sortedExpenses.putAll(groupedExpences);
         sortedExpenses.forEach((k,v) -> dayReports.add(new DayReport(v)));
@@ -25,24 +27,28 @@ public class Report {
         this.dayReports = dayReports;
     }
 
-    public Double getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
     public static class DayReport {
         private List<Expense> expenses;
-        private Double average;
+        private BigDecimal average;
 
         public DayReport() {
         }
 
         public DayReport(List<Expense> expenses) {
+            BigDecimal total = new BigDecimal(0);
+            for (Expense expense: expenses){
+                total = total.add(expense.getAmount());
+            }
+            this.average = total.divide(new BigDecimal(expenses.size()), 2, RoundingMode.HALF_UP);
             this.expenses = expenses;
-            this.average = expenses.stream().collect(Collectors.averagingLong((e -> new Double(e.getAmount() * 100d).longValue())))/100;
         }
 
         public List<Expense> getExpenses() {
@@ -53,11 +59,11 @@ public class Report {
             this.expenses = expenses;
         }
 
-        public Double getAverage() {
+        public BigDecimal getAverage() {
             return average;
         }
 
-        public void setAverage(Double average) {
+        public void setAverage(BigDecimal average) {
             this.average = average;
         }
     }

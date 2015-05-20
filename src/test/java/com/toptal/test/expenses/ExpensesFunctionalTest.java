@@ -12,6 +12,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
@@ -80,7 +81,7 @@ public class ExpensesFunctionalTest extends AbstractFunctionalTest {
     private Expense getExpense() {
         Expense expense = new Expense();
         expense.setUserId("user");
-        expense.setAmount(new Random().nextInt(10000)/ 100d);
+        expense.setAmount(new BigDecimal(new Random().nextInt(10000)/ 100d));
         expense.setCategory(randomString());
         expense.setDescription(randomString());
         expense.setDate(new Date());

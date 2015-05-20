@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -52,12 +53,16 @@ public class ExpensesController {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Map<String, List<Expense>> groupedExpenses = expenses.stream().collect(Collectors.groupingBy(e -> dateFormat.format(e.getDate())));
         // calculating total
-        Long sumLong = calculateExpensesSum(expenses);
-        return new Report(groupedExpenses,  new Long(sumLong).doubleValue() / 100);
+        BigDecimal sumLong = calculateExpensesSum(expenses);
+        return new Report(groupedExpenses,  sumLong);
 
     }
     // calculating sum via long. It is forbidden to calculate money with float or double
-    private Long calculateExpensesSum(List<Expense> expenses) {
-        return expenses.stream().collect(Collectors.summingLong(e -> new Double(e.getAmount() * 100d).longValue()));
+    private BigDecimal calculateExpensesSum(List<Expense> expenses) {
+        BigDecimal total = new BigDecimal(0);
+        for (Expense expense: expenses){
+            total = total.add(expense.getAmount());
+        }
+        return total;
     }
 }

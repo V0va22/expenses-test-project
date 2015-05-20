@@ -15,7 +15,7 @@
                         </td>
                         <td data-title="'Category'" sortable="'category'" filter="{ 'category': 'text' }">{{expense.category}}</td>
                         <td data-title="'Date'" sortable="'date'">{{expense.date | date:'medium'}}</td>
-                        <td data-title="'Amount'" sortable="'amount'" filter="{ 'amount': 'text' }">{{expense.amount}} </td>
+                        <td data-title="'Amount'" sortable="'amount'" filter="{ 'amount': 'text' }">{{expense.amount  | number:2}} </td>
                         <td>
                             <button class="btn btn-primary" ng-click="vm.editDialog(expense)">Edit</button>
                             <button class="btn btn-danger" ng-click="vm.delete(expense)">Delete</button>

@@ -3,6 +3,7 @@ package com.toptal.test.expenses.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Document(collection = "#{'mongo.db.expenses'}")
@@ -13,7 +14,7 @@ public class Expense {
     private String description;
     private String comment;
     private String category;
-    private Double amount;
+    private BigDecimal amount;
     private Date date;
 
     public String getId() {
@@ -56,11 +57,11 @@ public class Expense {
         this.category = category;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

@@ -32,11 +32,11 @@
                         <td data-title="'Comment'">{{expense.comment}}</td>
                         <td data-title="'Category'">{{expense.category}}</td>
                         <td data-title="'Date'">{{expense.date | date:'medium'}}</td>
-                        <td data-title="'Amount'" class="amount">{{expense.amount| number:2}}</td>
+                        <td data-title="'Amount'" class="amount">{{expense.amount | number:2}}</td>
                     </tr>
                     <tr>
                         <td colspan="4" class="emptyRow"></td>
-                        <td class="totalRow"><strong>Day average: {{dayReport.average| number:2}}</strong> </td>
+                        <td class="totalRow"><strong>Day average: {{dayReport.average | number:2}}</strong> </td>
                     </tr>
                 </tbody>
                 <tr>
