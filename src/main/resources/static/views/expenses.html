@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div>
+            <button class="btn btn-default" ng-click="vm.addDialog()">Add</button>
+        </div>
+        <div>
+            <div>
+                <table class="table" ng-table="vm.tableParams" show-filter="true">
+                    <tr ng-repeat="expense in $data">
+                        <td data-title="'Description'" sortable="'description'" filter="{ 'description': 'text' }">
+                            {{expense.description}}
+                        </td>
+                        <td data-title="'Comment'" sortable="'comment'" filter="{ 'comment': 'text' }">
+                            {{expense.comment}}
+                        </td>
+                        <td data-title="'Category'" sortable="'category'" filter="{ 'category': 'text' }">{{expense.category}}</td>
+                        <td data-title="'Date'" sortable="'date'">{{expense.date | date:'medium'}}</td>
+                        <td data-title="'Amount'" sortable="'amount'" filter="{ 'amount': 'text' }">{{expense.amount}} </td>
+                        <td>
+                            <button class="btn btn-primary" ng-click="vm.editDialog(expense)">Edit</button>
+                            <button class="btn btn-danger" ng-click="vm.delete(expense)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="100" style="text-align: center;" ng-hide="vm.expenses.length != 0"> No rows</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

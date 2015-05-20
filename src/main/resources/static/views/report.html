@@ -1,0 +1,43 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="controls report_panel">
+            <div class="input-group">
+                <span class="input-group-addon" id="start">Start date</span>
+                <input ng-model="vm.start" type="date" class="form-control"  aria-describedby="start">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="end">End date</span>
+                <input ng-model="vm.end" type="date" class="form-control"  aria-describedby="end">
+            </div>
+            <button class="btn btn-primary" ng-click="vm.generateReport()">Generate</button>
+        </div>
+
+
+        <div ng-show="vm.report">
+            <div class="btn-group export-btn" dropdown dropdown-append-to-body>
+                <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+                    Export <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a ng-click="vm.export('excel')">Excel</a></li>
+                    <li><a ng-click="vm.export('csv')">CSV</a></li>
+                </ul>
+            </div>
+
+            <table id="report-table" class="table report_table" ng-table template-pagination="views/nocontent.html"
+                   ng-show="vm.tableData.length != 0">
+                <tr ng-repeat="expense in vm.report.expenses">
+                    <td data-title="'Description'">{{expense.description}}</td>
+                    <td data-title="'Comment'">{{expense.comment}}</td>
+                    <td data-title="'Category'">{{expense.category}}</td>
+                    <td data-title="'Date'">{{expense.date | date:'medium'}}</td>
+                    <td data-title="'Amount'" class="amount">{{expense.amount}}</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="emptyRow"></td>
+                    <td class="totalRow"><strong>Total: {{vm.report.total}}</strong> </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

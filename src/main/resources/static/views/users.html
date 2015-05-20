@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div>
+            <button class="btn btn-default add-user" ng-click="vm.openDialog()">Add</button>
+        </div>
+        <div>
+            <div>
+                <table class="table users-table" data-toggle="table" ng-table template-pagination="views/nocontent.html">
+                    <tr ng-repeat="user in vm.users">
+                        <td data-title="'Name'" class="username"><span>{{user.id}}</span></td>
+                        <td data-title="'Role'" class="role">
+                            <select ng-model="user.role" ng-change="vm.updateUser(user)">
+                                <option>ADMIN</option>
+                                <option>USER</option>
+                            </select>
+                        </td>
+                        <td class="delete">
+                            <button class="btn btn-danger" ng-click="vm.delete(user)"><i
+                                    class="icon-trash icon-white"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="100" style="text-align: center;" ng-hide="vm.users.length != 0"> No rows</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

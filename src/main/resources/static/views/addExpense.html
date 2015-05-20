@@ -1,0 +1,50 @@
+<div class="modal-header">
+    <h3 class="modal-title">Add/edit expense</h3>
+</div>
+<div class="modal-body">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="alert alert-danger alert-dismissible" role="alert" ng-show="vm.errorMessage">{{vm.errorMessage}}
+                <button type="button" class="close" aria-label="Close" ng-click="vm.errorMessage = null">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="description">Description</span>
+                <input ng-model="vm.expense.description" type="text" class="form-control" placeholder="Description" aria-describedby="description">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="comment">Comment</span>
+                <input ng-model="vm.expense.comment" type="text" class="form-control" placeholder="Comment" aria-describedby="comment">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="category">Category</span>
+                <select  ng-model="vm.expense.category"  class="form-control" aria-describedby="category">
+                    <option>PRODUCTS</option>
+                    <option>CLOSES</option>
+                    <option>ENTERTAINMENT</option>
+                    <option>HOUSEHOLD UTILITIES</option>
+                    <option>RESTAURANTS</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="amount">Amount</span>
+                <input ng-model="vm.expense.amount" type="number" class="form-control"  aria-describedby="amount">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="date">Date</span>
+                <input ng-model="vm.expense.date" type="date" class="form-control"  aria-describedby="date">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="time">Time</span>
+                <input ng-model="vm.expense.time" type="time" class="form-control"  aria-describedby="time">
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="vm.addExpense()">OK</button>
+    <button class="btn btn-warning" ng-click="vm.cancel()">Cancel</button>
+</div>

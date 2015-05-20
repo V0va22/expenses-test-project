@@ -1,0 +1,65 @@
+.login-panel{
+    width: 500px;
+    margin: 0 auto;
+}
+li.rightButton {
+    float: right;
+}
+
+.report_table td {
+    width: 20%;
+    margin-left: 20%;
+}
+
+.report_table .amount, .report_table .totalRow  {
+    width: 100px;
+    text-align: right;
+}
+
+.input-group span {
+    width: 30%;
+}
+
+.input-group {
+    width: 100%;
+}
+
+.input-group:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+.users-table {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.users-table .delete {
+    width: 10%;
+}
+
+.users-table .role {
+    text-align: center;
+}
+
+.users-table .username span, .add-user {
+    margin-left: 20%;
+}
+
+.report_panel {
+    width: 280px;
+}
+
+.report_panel > div {
+    width: 100%;
+}
+
+.report_panel > div > span {
+    width: 40%;
+}
+.export-btn{
+    float: right;
+}
+a[ng-click]{
+    cursor: pointer;
+}
+
