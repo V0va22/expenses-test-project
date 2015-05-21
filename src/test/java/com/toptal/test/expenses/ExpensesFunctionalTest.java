@@ -19,13 +19,13 @@ import java.util.Random;
 
 
 public class ExpensesFunctionalTest extends AbstractFunctionalTest {
-    public static final long WEEK_IN_MS = 168000l;
+    public static final long WEEK_IN_MS = 604800000l;
     @Autowired
     private ExpensesRepository expensesRepository;
 
     @Before
     public void before(){
-        generateExpenses(10);
+        generateExpenses(30);
     }
 
 
@@ -79,10 +79,12 @@ public class ExpensesFunctionalTest extends AbstractFunctionalTest {
     }
 
     private Expense getExpense() {
+        Random random = new Random();
         Expense expense = new Expense();
         expense.setUserId("user");
-        expense.setAmount(new BigDecimal(new Random().nextInt(10000)/ 100d));
-        expense.setCategory(randomString());
+        expense.setAmount(new BigDecimal(random.nextInt(10000) / 100d));
+        expense.setCategory(new String[]{"PRODUCTS", "CLOSES", "ENTERTAINMENT", "HOUSEHOLD UTILITIES", "RESTAURANTS"}[random.nextInt(5)]);
+        expense.setComment(randomString());
         expense.setDescription(randomString());
         expense.setDate(new Date());
         return expense;

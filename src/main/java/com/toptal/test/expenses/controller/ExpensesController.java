@@ -50,8 +50,7 @@ public class ExpensesController {
         Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Expense> expenses = mongo.find(new Query().addCriteria(where("date").gte(new Date(start)).lte(new Date(end)).and("userId").is(user)), Expense.class);
         // grouping by day average
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Map<String, List<Expense>> groupedExpenses = expenses.stream().collect(Collectors.groupingBy(e -> dateFormat.format(e.getDate())));
+        Map<String, List<Expense>> groupedExpenses = expenses.stream().collect(Collectors.groupingBy(e -> Report.DATE_FORMAT.format(e.getDate())));
         // calculating total
         BigDecimal sumLong = calculateExpensesSum(expenses);
         return new Report(groupedExpenses,  sumLong);
